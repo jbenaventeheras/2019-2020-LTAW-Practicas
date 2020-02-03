@@ -16,7 +16,9 @@ function peticion(req, res) {
 
   //-- Crear mensaje de respuesta
   res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write(req.url + "\n");
   res.end('Hello World!');
+
 
 }
 
@@ -25,9 +27,12 @@ function peticion(req, res) {
 //-- invoca a la funcion peticion para atenderla
 const server = http.createServer(peticion)
 
+
 //-- Configurar el servidor para escuchar en el
 //-- puerto establecido
 server.listen(PUERTO);
+
+//** Se ejecuta la funcion cada vez que se recibe una peticion
 
 console.log("Servidor LISTO!")
 console.log("Escuchando en puerto: " + PUERTO)
