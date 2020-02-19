@@ -8,6 +8,7 @@ http.createServer( (req, res) => {
   console.log("---> Peticion recibida")
   console.log("Recurso solicitado (URL): " + req.url)
   var q = url.parse(req.url, true);
+  console.log("Recurso solicitado (URL): " + q)
   console.log("URL parseada: ")
   console.log("Host: " + q.host)
   console.log("pathname:" + q.pathname)
