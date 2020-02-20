@@ -17,4 +17,8 @@ urlpatterns = [
     path('test1/', views.test1, name='test1'),
     #-- URL de la nueva vista test2:
     path('test2/', views.test2, name='test2'),
+    #--  Plantilla desde Fichero
+    path('test3/', views.test3, name='test3'),
+    #--sólo usando la función render()
+    path('test4/', views.test4, name='test4'),
 ]
