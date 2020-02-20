@@ -21,4 +21,6 @@ urlpatterns = [
     path('test3/', views.test3, name='test3'),
     #--sólo usando la función render()
     path('test4/', views.test4, name='test4'),
+    #--srecursos estáticos
+    path('test5/', views.test5, name='test5'),
 ]

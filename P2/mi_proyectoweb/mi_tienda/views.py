@@ -105,3 +105,10 @@ def test4(request):
     # -- Obtener el número aleatorio
     numero = randint(0, 100)
     return render(request, 'test.html', {'numero':str(numero)})
+
+
+#-- plantilla que utilice recursos estáticos.
+def test5(request):
+    # -- Obtener el número aleatorio
+    numero = randint(0, 100)
+    return render(request, 'test5.html', {'numero':str(numero)})
