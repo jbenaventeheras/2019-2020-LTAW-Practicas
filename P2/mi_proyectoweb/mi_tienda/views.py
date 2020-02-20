@@ -4,6 +4,10 @@ from django.shortcuts import render
 # -- Fichero mi_tienda/views.py
 from django.http import HttpResponse
 
+
+from random import randint
+from django.template import Template, Context
+
 # -- Vista principal de mi tienda
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
 # -- llamado index, pero se podría haber llamado pepito
@@ -43,3 +47,34 @@ def test1(request):
     """
     return HttpResponse(PAGINA_INI + P + PAGINA_FIN)
      #--Y enviamos el mensaje de respuesta con el método HttpResponse
+
+# -- Ejemplo de generacion mediante una plantilla en el código
+def test2(request):
+
+    # -- Obtener el número aleatorio
+    numero = randint(0, 100)
+
+    PLANTILLA = """
+    <!DOCTYPE html>
+    <html lang="es" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Test2</title>
+      </head>
+      <body>
+        <h1>TEST2</h1>
+        <p> Numero aleatorio:  {{numero}} </p>
+      </body>
+    </html>
+    """
+
+    # --Procesar la plantilla
+    t = Template(PLANTILLA)
+
+    # -- Crear el contexto: Asignar el numero
+    c = Context({'numero': str(numero)})
+
+    # -- Obtener la pagina html final
+    html = t.render(c)
+
+    return HttpResponse(html)

@@ -13,6 +13,8 @@ from . import views
 urlpatterns = [
     # -- Vista pricipal (índice)
     path('', views.index, name='index'),
-    #-- URL de la nueva vista:
+    #-- URL de la nueva vista test1:
     path('test1/', views.test1, name='test1'),
+    #-- URL de la nueva vista test2:
+    path('test2/', views.test2, name='test2'),
 ]
