@@ -30,6 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+#-- Para terminar de configurar la aplicación mi tienda, tenemos que añadirla en el
+#-- fichero settings.py. Buscamos la variable INSTALLED_APPs y la añadimos al final:
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mi_tienda',
 ]
 
 MIDDLEWARE = [

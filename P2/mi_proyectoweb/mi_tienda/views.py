@@ -8,4 +8,4 @@ from django.http import HttpResponse
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
 # -- llamado index, pero se podría haber llamado pepito
 def index(request):
-    return HttpResponse("Hola! esta es la página principal de Mi tienda!")
+    return HttpResponse("Hola! esta es la página INDEX (INDICE)")

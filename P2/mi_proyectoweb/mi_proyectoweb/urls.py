@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 # -- Recursos de mi proyecto web
-
+# -- ligar la URLs de mi_tienda con la URL global de mi_proyectoweb.
 urlpatterns = [
     # -- Esta es la URL de mi tienda
     path('mi_tienda/', include('mi_tienda.urls')),
