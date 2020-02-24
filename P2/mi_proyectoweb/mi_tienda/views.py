@@ -9,6 +9,8 @@ from random import randint
 from django.template import Template, Context
 from django.template.loader import get_template
 
+from mi_tienda.models import Producto
+
 # -- Vista principal de mi tienda
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
 # -- llamado index, pero se podría haber llamado pepito
@@ -112,3 +114,16 @@ def test5(request):
     # -- Obtener el número aleatorio
     numero = randint(0, 100)
     return render(request, 'test5.html', {'numero':str(numero)})
+
+def list(request):
+    productos = Producto.objects.all()
+    html = "<h2>Listado de articulos</h2>"
+    for prod in productos:
+        print(prod.nombre)
+        html += '<p>'+ prod.nombre + ' ' + str(prod.precio) + '<p>'
+    return HttpResponse(html)
+
+#pasamos plantilla y el render lo une con las variables productos
+def list2(request):
+    productos = Producto.objects.all()
+    return render(request, 'listado.html', {'productos':productos})
