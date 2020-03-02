@@ -10,13 +10,16 @@ from random import randint
 from django.template import Template, Context
 from django.template.loader import get_template
 
+#-- Importamos clase producto para renderizar con la plantilla
 from mi_tienda.models import Producto
 
 # -- Vista principal de mi tienda
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
 # -- llamado index, pero se podría haber llamado pepito
 def index(request):
-    return HttpResponse("Hola! esta es la página INDEX (INDICE)")
+
+    numero = randint(0, 100)
+    return render(request, 'index.html', {'numero':str(numero)})
 
 
 #-- Generar la página desde cero, a partir de código HTML que tenemos en una
@@ -101,7 +104,7 @@ def test3(request):
     # -- Obtener la pagina html final
     html = t.render(c)
 
-    return HttpResponse(html)
+    return HttpResponse(html)#--
 
 # -- Ejemplo de uso de la función Render
 def test4(request):
@@ -127,7 +130,7 @@ def list(request):
 #pasamos plantilla y el render lo une con las variables productos,
 #ejecutando listado.hmtl, renderiza con template listado el objeto en db productos
 
-def list2(request):
+def Show_products(request):
     #-- busqueda en db con filtro de python,  cuyo modulo lo traduce leng sql
     #-- Producto.objects.all() devuelve todo en db
     productos = Producto.objects.all()

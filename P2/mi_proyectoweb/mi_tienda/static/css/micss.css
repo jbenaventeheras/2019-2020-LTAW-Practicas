@@ -1,20 +1,17 @@
 body {
-  background-color: lightblue;
+  background-color: black;
 }
 
 p {
-  color: green;
+  color: white;
+  font: Arial;
+  font-variant: normal;
+  font-size: 300;
+  margin: auto;
+   display:block;
 }
 
-home .logo {
-    background-color: transparent;
-    border: 0;
-    overflow: hidden;
-    *text-indent: -9999px;
-    display: block;
-    margin: 0 auto;
-    background: url(//d17ol771963kd3.cloudfront.net/assets/logo-supreme-7fbf1f6….png) left top no-repeat;
-    background-size: 13.63636em 4.09091em;
-    width: 13.63636em;
-    height: 4.09091em;
-}
+.logo{
+		    margin: auto;
+		    display:block;
+    }

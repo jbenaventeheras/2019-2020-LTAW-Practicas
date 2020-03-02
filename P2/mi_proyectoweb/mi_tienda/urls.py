@@ -8,8 +8,8 @@ from .import views
 # -- Metemos de momento sólo la principal (índice)
 
 # -- Cada vez que se reciba el recurso "" en mi tienda, se llamará a la función
-# --index() definida en views.py. Además se le signa la etiqueta "index" (name)
-# --para que podamos referenciar esta vista desdenuestras plantillas .
+# -- index() definida en views.py. Además se le signa la etiqueta "index" (name)
+# -- para que podamos referenciar esta vista desdenuestras plantillas .
 # -- urlpatternsurlpatterns son regular expresions
 # -- Vista pricipal (índice)
 urlpatterns = [
@@ -28,7 +28,7 @@ urlpatterns = [
     #-- ejecutamos list cuyo codigo lee los objetos de db y los envia en html
     path('list/', views.list, name='list'),
     #-- renderiza con template listado el objeto en db productos
-    path('list2/', views.list, name='list2'),
+    path('Show_products/', views.list, name='Show_products'),
 
     path('formulario1/', views.formulario1, name='formulario1'),
     #Vista de recepción de datos
