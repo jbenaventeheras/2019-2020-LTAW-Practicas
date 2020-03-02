@@ -1,9 +1,10 @@
 from django.shortcuts import render
 # Create your views here.
-
+#-- recibe el request y contruye devuelbe  en string HttpResponse python
+# --Dinamico al componerse segun el request
 # -- Fichero mi_tienda/views.py
+# --plantilla + contexto = respuesta
 from django.http import HttpResponse
-
 
 from random import randint
 from django.template import Template, Context
@@ -29,7 +30,7 @@ def test1(request):
 
     # -- Obtener el número aleatorio
     numero = randint(0, 100)
-
+    # -- plantilla a fuego
     # Párrafo a insertar
     P = "<p>Numero aleatorio: " + str(numero) + " </p>"
 
@@ -85,6 +86,7 @@ def test2(request):
 #-- Generación con plantilla desde fichero
 #-- La plantilla se lee desde el fichero, mediante la función get_template().
 #-- Luego se aplica el contexto, se renderiza la página y se envía la respuesta
+
 def test3(request):
 
     # -- Obtener el número aleatorio
@@ -101,13 +103,11 @@ def test3(request):
 
     return HttpResponse(html)
 
-
 # -- Ejemplo de uso de la función Render
 def test4(request):
     # -- Obtener el número aleatorio
     numero = randint(0, 100)
     return render(request, 'test.html', {'numero':str(numero)})
-
 
 #-- plantilla que utilice recursos estáticos.
 def test5(request):
@@ -115,6 +115,7 @@ def test5(request):
     numero = randint(0, 100)
     return render(request, 'test5.html', {'numero':str(numero)})
 
+#--el codigo que construye una respuesta html con objetos de la db(sql)
 def list(request):
     productos = Producto.objects.all()
     html = "<h2>Listado de articulos</h2>"
@@ -123,7 +124,26 @@ def list(request):
         html += '<p>'+ prod.nombre + ' ' + str(prod.precio) + '<p>'
     return HttpResponse(html)
 
-#pasamos plantilla y el render lo une con las variables productos
+#pasamos plantilla y el render lo une con las variables productos,
+#ejecutando listado.hmtl, renderiza con template listado el objeto en db productos
+
 def list2(request):
+    #-- busqueda en db con filtro de python,  cuyo modulo lo traduce leng sql
+    #-- Producto.objects.all() devuelve todo en db
     productos = Producto.objects.all()
     return render(request, 'listado.html', {'productos':productos})
+
+
+#vista que llamaremos formulario1 encargo en tienda,a través plantilla formulario1.hmtl
+def formulario1(request):
+    return render(request, 'formulario1.html', {})
+
+#Vista de recepción de datos, lee los datos que han llegado del formulario.
+#través del método POST, indicando el nombre del campo a leer. En ejemplo "nombre"
+#mensaje respuesta con mini-pág web que confirma recibido  datos,y pone nombre recibido
+def recepcion1(request):
+    # -- Obtener el nombre de la persona
+    persona = request.POST['nombre']
+    # -- Imprimirlo en la consola del servidor
+    print(f" PEDIDO RECIBIDO!!! ----> {persona}")
+    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'])

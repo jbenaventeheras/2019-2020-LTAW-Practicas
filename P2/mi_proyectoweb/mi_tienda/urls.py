@@ -1,7 +1,8 @@
 from django.urls import path
-
+# --Mapeo por patterns con las views
+# --posibilidad de pasar datos por url
 # -- Importar todas las vistas de mi_tienda
-from . import views
+from .import views
 
 # -- Aquí se definen las URLs de nuestra tienda
 # -- Metemos de momento sólo la principal (índice)
@@ -9,9 +10,10 @@ from . import views
 # -- Cada vez que se reciba el recurso "" en mi tienda, se llamará a la función
 # --index() definida en views.py. Además se le signa la etiqueta "index" (name)
 # --para que podamos referenciar esta vista desdenuestras plantillas .
-
+# -- urlpatternsurlpatterns son regular expresions
+# -- Vista pricipal (índice)
 urlpatterns = [
-    # -- Vista pricipal (índice)
+
     path('', views.index, name='index'),
     #-- URL de la nueva vista test1:
     path('test1/', views.test1, name='test1'),
@@ -23,6 +25,14 @@ urlpatterns = [
     path('test4/', views.test4, name='test4'),
     #--srecursos estáticos
     path('test5/', views.test5, name='test5'),
-    
+    #-- ejecutamos list cuyo codigo lee los objetos de db y los envia en html
     path('list/', views.list, name='list'),
+    #-- renderiza con template listado el objeto en db productos
+    path('list2/', views.list, name='list2'),
+
+    path('formulario1/', views.formulario1, name='formulario1'),
+    #Vista de recepción de datos
+    path('recepcion1/', views.recepcion1, name='reception1')
+
+
 ]

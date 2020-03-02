@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 # Modelos de datos
-from django.db import models
+
 
 #creamos clase que herada de models.
 class Producto(models.Model):
