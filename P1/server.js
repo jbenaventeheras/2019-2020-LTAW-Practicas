@@ -21,7 +21,6 @@ function peticion(req, res) {
 
 
 }
-
 //-- Inicializar el servidor
 //-- Cada vez que recibe una petición
 //-- invoca a la funcion peticion para atenderla
