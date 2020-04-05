@@ -10,7 +10,7 @@ http.createServer( (req, res) => {
   //-- Analisis de la URL recibida:
   let q = url.parse(req.url, true);
 
-  console.log("Pathname: " +  q.pathname)
+  console.log("Pathname: " +  q.pathname + q)
   console.log("search: " + q.search)
   console.log("Búsqueda:")
   let qdata = q.query

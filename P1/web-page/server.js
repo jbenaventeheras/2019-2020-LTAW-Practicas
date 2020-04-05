@@ -7,20 +7,11 @@ const PUERTO = 8080
 http.createServer( (req, res) => {
   console.log("---> Peticion recibida")
   console.log("Recurso solicitado (URL): " + req.url)
-
   var q = url.parse(req.url, true);
   console.log("Recurso solicitado (URL): " + q)
   console.log("URL parseada: ")
   console.log("Host: " + q.host)
   console.log("pathname:" + q.pathname)
-  
-  //--query
-  let qdata = q.query
-  console.log(qdata)
-
-  //-- Acceso al objeto
-  console.log("Artículo: " + qdata.articulo)
-  console.log("Color: " + qdata.color)
 
   //_- Crear el mensaje de respuesta. Primero la cabecera
   //-- El código 200 se usa para indicar que todo está ok
