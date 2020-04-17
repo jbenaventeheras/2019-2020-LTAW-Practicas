@@ -5,10 +5,7 @@ const path = require('path')
 const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
 var express = require('express')
-var favicon = require('serve-favicon')
 
-var app = express()
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 //-- Configurar el servidor
 http.createServer((req, res) => {
@@ -17,10 +14,12 @@ http.createServer((req, res) => {
 
   console.log("----------> Peticion recibida")
   let q = url.parse(req.url, true);
-  console.log("Recurso:" + q.pathname)
+  console.log("Recurso solicitado (URL): " + req.url)
+  console.log("Host: " + q.host)
+  console.log("pathname:" + q.pathname)
 
 
-  // creating generic index
+  // Leemos el index para URL vacía
     var filename = ""
     if (q.pathname == "/")
       filename += "/index.html";
@@ -29,35 +28,42 @@ http.createServer((req, res) => {
     }
 
     type = filename.split(".")[1]
-    filename = "." + filename
+    filename = filename.split("/")[1]
 
     console.log("Filename: " + filename);
     console.log("Type: " + type);
 
     var mime = "text/html"
     fs.readFile(filename, (err, data) => {
-      if (err) {
+
+    if (err) {
         res.writeHead(404, {'Content-Type': mime});
-        return res.end("404 Not Found " + q.pathname +
-                       ' but we will create it.');
-      }
-
-  // default mime type
+        return res.end("404 Not Found " + q.pathname );
+    }
     var mime = "text/html"
-  // for images
-    if (['png', 'jpg'].includes(type)) {
-      console.log("LOADING IMAGE")
+
+    if (type == "html"){
+        console.log("Cargar HTML")
+        mime = "text/html";
+        res.writeHead(200, {'Content-Type': mime});
+    }else if(['png', 'jpg', 'jpeg', 'ico'].includes(type)){
+      console.log("Cargar Imagen")
       mime = "image/" + type;
-    }
-  // for css
-    if (type == "css"){
+      res.writeHead(200, {'Content-Type': mime});
+
+    }else if (type == "css"  ||  type== 'stylesheet'){
+      console.log("Cargar CSS")
       mime = "text/css";
+      res.writeHead(200, {'Content-Type': mime});
+
     }
 
-    res.writeHead(200, {'Content-Type': mime});
     res.write(data);
     res.end();
     console.log('____________END REQUEST____________\n');
+
+    //gestion errores
+
   });
 
 }).listen(PUERTO);
