@@ -28,7 +28,7 @@ http.createServer((req, res) => {
     }
 
     type = filename.split(".")[1]
-    filename = filename.split("/")[1]
+    filename = "." + filename
 
     console.log("Filename: " + filename);
     console.log("Type: " + type);
@@ -57,6 +57,7 @@ http.createServer((req, res) => {
       res.writeHead(200, {'Content-Type': mime});
 
     }
+
 
     res.write(data);
     res.end();
