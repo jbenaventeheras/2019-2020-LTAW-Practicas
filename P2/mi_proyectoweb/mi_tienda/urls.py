@@ -26,9 +26,9 @@ urlpatterns = [
     #--srecursos estáticos
     path('test5/', views.test5, name='test5'),
     #-- ejecutamos list cuyo codigo lee los objetos de db y los envia en html
-    path('list/', views.list, name='list'),
     #-- renderiza con template listado el objeto en db productos
     path('Show_products/', views.list, name='Show_products'),
+    path('FalconSerie/', views.FalconSerie, name='FalconSerie'),
 
     path('formulario1/', views.formulario1, name='formulario1'),
     #Vista de recepción de datos

@@ -21,6 +21,9 @@ def index(request):
     numero = randint(0, 100)
     return render(request, 'index.html', {'numero':str(numero)})
 
+def FalconSerie (request):
+    return render(request, "FalconSerie.html", {})
+
 
 #-- Generar la página desde cero, a partir de código HTML que tenemos en una
  #--cadena. En los lugares que nos interese introducimos la información que queramos

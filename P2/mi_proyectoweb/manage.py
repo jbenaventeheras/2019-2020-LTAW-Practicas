@@ -4,6 +4,7 @@ import os
 import sys
 
 #--lanzamos el servidor, ejecutando $python3 manage.py runserver
+#--python3 manage.py runserver 0.0.0.0:8000--> 
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mi_proyectoweb.settings')
