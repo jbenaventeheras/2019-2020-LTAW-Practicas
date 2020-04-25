@@ -1,6 +1,13 @@
+
+@font-face {
+  font-family: Space;
+  src: url("space_age.ttf");
+}
+
 body {
-  background-color: black;
+  background-color: 	#a7adba;
   font-size: 300;
+  font-family: Space;
 }
 
 p {
