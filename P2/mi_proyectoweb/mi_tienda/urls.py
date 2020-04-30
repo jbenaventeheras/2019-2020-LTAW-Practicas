@@ -28,6 +28,7 @@ urlpatterns = [
     #-- ejecutamos list cuyo codigo lee los objetos de db y los envia en html
     #-- renderiza con template listado el objeto en db productos
     path('Show_products/', views.list, name='Show_products'),
+    path('Show_pedido/', views.list_pedido, name='Show_pedido'),
     path('FalconSerie/', views.FalconSerie, name='FalconSerie'),
 
     path('formulario1/', views.formulario1, name='formulario1'),

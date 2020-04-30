@@ -130,6 +130,15 @@ def list(request):
         html += '<p>'+ prod.nombre + ' ' + str(prod.precio) + '<p>'
     return HttpResponse(html)
 
+#--el codigo que construye una respuesta html con objetos de la db(sql)
+def list_pedido(request):
+    pedido = Pedido.objects.all()
+    html = "<h2>Listado de articulos</h2>"
+    for prod in pedido:
+        print(prod.nombre)
+        html += '<p>'+ prod.nombre + ' ' + str(prod.producto) + '<p>'
+    return HttpResponse(html)
+
 #pasamos plantilla y el render lo une con las variables productos,
 #ejecutando listado.hmtl, renderiza con template listado el objeto en db productos
 
@@ -138,6 +147,7 @@ def Show_products(request):
     #-- Producto.objects.all() devuelve todo en db
     productos = Producto.objects.all()
     return render(request, 'listado.html', {'productos':productos})
+
 
 
 #vista que llamaremos formulario1 encargo en tienda,a través plantilla formulario1.hmtl
