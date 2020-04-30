@@ -12,7 +12,7 @@ from django.template.loader import get_template
 
 #-- Importamos clase producto para renderizar con la plantilla
 from mi_tienda.models import Producto
-
+from mi_tienda.models import Pedido
 # -- Vista principal de mi tienda
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
 # -- llamado index, pero se podría haber llamado pepito
@@ -150,6 +150,7 @@ def formulario1(request):
 def recepcion1(request):
     # -- Obtener el nombre de la persona
     persona = request.POST['nombre']
+    producto = request.POST['nombre']
     # -- Imprimirlo en la consola del servidor
     print(f" PEDIDO RECIBIDO!!! ----> {persona}")
     return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'])

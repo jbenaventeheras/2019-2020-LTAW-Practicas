@@ -18,3 +18,14 @@ class Producto(models.Model):
     # -- obtener una cadena que represente a ese objet0
     def __str__(self):
         return self.nombre
+
+class Pedido(models.Model):
+    """Modelo de datos para pedidos"""
+
+    nombre = models.CharField(max_length=50)
+    producto = models.CharField(max_length=50)
+
+
+
+    def __str__(self):
+        return self.nombre

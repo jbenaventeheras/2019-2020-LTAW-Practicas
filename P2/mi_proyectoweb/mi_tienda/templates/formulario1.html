@@ -1,4 +1,4 @@
-!DOCTYPE html>
+{% load staticfiles %}
 <html lang="es" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -12,7 +12,9 @@
        genera un token y sólo permite recibir datos de aquellos clients que tengan ese token-->
       {% csrf_token %}
       <label>Nombre de la persona que hace el pedido: <label>
-      <input type="text" name="nombre" value="Anonimo" />
+      <input type="text" name="nombre" />
+      <label>Producto <label>
+      <input type="text" name="Producto" />
       <input type="submit" value="OK" />
     </form>
   </body>
