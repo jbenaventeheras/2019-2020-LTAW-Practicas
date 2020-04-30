@@ -133,7 +133,7 @@ def list(request):
 #--el codigo que construye una respuesta html con objetos de la db(sql)
 def list_pedido(request):
     pedido = Pedido.objects.all()
-    html = "<h2>Listado de articulos</h2>"
+    html = "<h2>Listado Pedidos</h2>"
     for prod in pedido:
         print(prod.nombre)
         html += '<p>'+ prod.nombre + ' ' + str(prod.producto) + '<p>'
