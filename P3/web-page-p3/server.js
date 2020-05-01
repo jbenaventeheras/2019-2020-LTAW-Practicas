@@ -18,6 +18,9 @@ http.createServer((req, res) => {
   console.log("Host: " + q.host)
   console.log("pathname:" + q.pathname)
 
+  //-- Leer las cookies
+  const cookie = req.headers.cookie;
+  console.log("Cookie: " + cookie);
 
   // Leemos el index para URL vacía
     var filename = ""
@@ -28,7 +31,7 @@ http.createServer((req, res) => {
       filename = "." + filename
     }
 
-    type = filename.split(".")[1]
+    type = filename.split(".")[2]
 
 
     console.log("Filename: " + filename);
@@ -47,6 +50,7 @@ http.createServer((req, res) => {
         console.log("Cargar HTML")
         mime = "text/html";
         res.writeHead(200, {'Content-Type': mime});
+
     }else if(['png', 'jpg', 'jpeg', 'ico'].includes(type)){
       console.log("Cargar Imagen")
       mime = "image/" + type;
