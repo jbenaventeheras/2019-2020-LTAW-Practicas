@@ -22,13 +22,14 @@ http.createServer((req, res) => {
   // Leemos el index para URL vacía
     var filename = ""
     if (q.pathname == "/")
-      filename += "/index.html";
+      filename += "./index.html";
     else {
       filename = q.pathname;
+      filename = "." + filename
     }
 
     type = filename.split(".")[1]
-    filename = "." + filename
+
 
     console.log("Filename: " + filename);
     console.log("Type: " + type);
