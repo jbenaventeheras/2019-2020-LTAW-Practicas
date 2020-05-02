@@ -10,9 +10,7 @@ var express = require('express')
 //-- Configurar el servidor
 http.createServer((req, res) => {
 
-
-
-  console.log("----------> Peticion recibida")
+  console.log("---------- PETICION RECIBIDA --------------")
   let q = url.parse(req.url, true);
   console.log("Recurso solicitado (URL): " + req.url)
   console.log("Host: " + q.host)
@@ -66,7 +64,7 @@ http.createServer((req, res) => {
 
     res.write(data);
     res.end();
-    console.log('____________END REQUEST____________\n');
+    console.log('---------PETICION TERMINADA----------\n');
 
     //gestion errores
 
