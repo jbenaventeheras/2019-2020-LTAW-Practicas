@@ -22,8 +22,14 @@ http.createServer((req, res) => {
 
   // Leemos el index para URL vacía
     var filename = ""
-    if (q.pathname == "/")
+    if (q.pathname == "/"){
       filename += "./index.html";
+    }else if(q.pathname == "/comprardestroyer"){
+      filename += "./index.html";
+      console.log("comprado destroyer")
+      res.setHeader('Set-Cookie', 'carrito=destroyer')
+
+    }
     else {
       filename = q.pathname;
       filename = "." + filename
