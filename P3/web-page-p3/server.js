@@ -25,17 +25,16 @@ http.createServer((req, res) => {
   	if(cookie){
       cookie_array= cookie.split(';');
       for(var i = 0; i <cookie_array.length; i++) {
+        //nombre de la cookie
         carrito = (cookie_array[i].split('=')[0])
         if (carrito == "carrito"){
+          //valor de la cookie
           producto = (cookie_array[i].split('=')[1])
         }
       }
   	}
    return carrito
   }
-
-  getCookie(cookie)
-
 
   // Leemos el index para URL vacía
     var filename = ""
@@ -54,16 +53,72 @@ http.createServer((req, res) => {
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/compraralax"){
       filename += "./index.html";
-      console.log("comprado Ala X")
-      res.setHeader('Set-Cookie', 'carrito=AlaX')
+      if (getCookie(cookie)=="carrito"){
+        producto+= ",AlaX"
+      }else{
+        producto="AlaX"
+      }
+      res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprarhalcon"){
       filename += "./index.html";
-      console.log("comprado Halcon")
-      res.setHeader('Set-Cookie', 'carrito=Halcon')
+      if (getCookie(cookie)=="carrito"){
+        producto+= ",Halcon"
+      }else{
+        producto="Halcon"
+      }
+      res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprartie"){
       filename += "./index.html";
-      console.log("compradotie")
-      res.setHeader('Set-Cookie', 'carrito=Tie')
+      if (getCookie(cookie)=="carrito"){
+        producto+= ",Tie"
+      }else{
+        producto="Tie"
+      }
+      res.setHeader('Set-Cookie', 'carrito='+producto)
+    }else if(q.pathname == "/mycarrito"){
+      if (req.method === 'POST') {
+          // Handle post info...
+
+          var content = `
+          <!DOCTYPE html>
+          <html lang="es">
+            <head>
+              <meta charset="utf-8">
+              <title>FORM 1</title>
+            </head>
+            <body>
+              <p>Recibido: `
+
+          req.on('data', chunk => {
+              //-- Leer los datos (convertir el buffer a cadena)
+              data = chunk.toString();
+
+              //-- Añadir los datos a la respuesta
+              content += data;
+
+              //-- Fin del mensaje. Enlace al formulario
+              content += `
+                  </p>
+                  <a href="/">[Formulario]</a>
+                </body>
+              </html>
+              `
+              //-- Mostrar los datos en la consola del servidor
+              console.log("Datos recibidos: " + data)
+              res.statusCode = 200;
+           });
+
+           req.on('end', ()=> {
+             //-- Generar el mensaje de respuesta
+             res.setHeader('Content-Type', 'text/html')
+             res.write(content);
+             res.end();
+           })
+           return
+        }
+
+
+
       //para el resto de paginas que no sean index ni de compra
     } else {
       filename = q.pathname;
@@ -71,7 +126,6 @@ http.createServer((req, res) => {
     }
 
     type = filename.split(".")[2]
-
 
     console.log("Filename: " + filename);
     console.log("Type: " + type);
@@ -101,6 +155,7 @@ http.createServer((req, res) => {
       res.writeHead(200, {'Content-Type': mime});
 
     }
+
 
 
     res.write(data);
