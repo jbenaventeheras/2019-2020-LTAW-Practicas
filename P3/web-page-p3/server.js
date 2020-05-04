@@ -115,6 +115,8 @@ http.createServer((req, res) => {
               <p>Recibido: `
               if (cookie){
                 content+=valor_cookie.toString();
+              }else{
+                content+='Carrito vacío';
               }
           req.on('data', chunk => {
               //-- Leer los datos (convertir el buffer a cadena)
@@ -129,8 +131,6 @@ http.createServer((req, res) => {
                 </body>
               </html>
               `
-              //-- Mostrar los datos en la consola del servidor
-              console.log("Datos recibidos: " + data)
               res.statusCode = 200;
            });
 
