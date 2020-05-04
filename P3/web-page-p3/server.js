@@ -24,13 +24,25 @@ http.createServer((req, res) => {
     var filename = ""
     if (q.pathname == "/"){
       filename += "./index.html";
+      //para url de compras añadidimos cookie y volvemos a index
     }else if(q.pathname == "/comprardestroyer"){
       filename += "./index.html";
       console.log("comprado destroyer")
       res.setHeader('Set-Cookie', 'carrito=destroyer')
-
-    }
-    else {
+    }else if(q.pathname == "/compraralax"){
+      filename += "./index.html";
+      console.log("comprado Ala X")
+      res.setHeader('Set-Cookie', 'carrito=AlaX')
+    }else if(q.pathname == "/comprarhalcon"){
+      filename += "./index.html";
+      console.log("comprado Halcon")
+      res.setHeader('Set-Cookie', 'carrito=Halcon')
+    }else if(q.pathname == "/comprartie"){
+      filename += "./index.html";
+      console.log("compradotie")
+      res.setHeader('Set-Cookie', 'carrito=Tie')
+      //para el resto de paginas que no sean index ni de compra
+    } else {
       filename = q.pathname;
       filename = "." + filename
     }
