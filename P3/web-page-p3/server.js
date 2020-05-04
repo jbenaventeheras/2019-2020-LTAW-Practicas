@@ -20,6 +20,26 @@ http.createServer((req, res) => {
   const cookie = req.headers.cookie;
   console.log("Cookie: " + cookie);
 
+  function getCookie(cookie){
+
+  	if(cookie)
+  	{
+      cookie_array= cookie.split(';');
+      for(var i = 0; i <cookie_array.length; i++) {
+        carrito = (cookie_array[i].split('=')[0])
+        if (carrito == "carrito"){
+          producto = (cookie_array[i].split('=')[1])
+        }
+
+
+      }
+  	}
+   return producto
+  }
+
+  getCookie(cookie);
+
+
   // Leemos el index para URL vacía
     var filename = ""
     if (q.pathname == "/"){
