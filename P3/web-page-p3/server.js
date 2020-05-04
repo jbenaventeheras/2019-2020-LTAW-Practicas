@@ -36,6 +36,22 @@ http.createServer((req, res) => {
    return carrito
   }
 
+  function getCookie_valor(cookie){
+
+  	if(cookie){
+      cookie_array= cookie.split(';');
+      for(var i = 0; i <cookie_array.length; i++) {
+        //nombre de la cookie
+        carrito = (cookie_array[i].split('=')[0])
+        if (carrito == "carrito"){
+          //valor de la cookie
+          producto = (cookie_array[i].split('=')[1])
+        }
+      }
+  	}
+   return producto
+  }
+
   // Leemos el index para URL vacía
     var filename = ""
     var carrito= ""
@@ -78,7 +94,8 @@ http.createServer((req, res) => {
     }else if(q.pathname == "/mycarrito"){
       if (req.method === 'POST') {
           // Handle post info...
-
+          var valor_cookie = getCookie_valor(cookie)
+          console.log(valor_cookie)
           var content = `
           <!DOCTYPE html>
           <html lang="es">
@@ -88,17 +105,17 @@ http.createServer((req, res) => {
             </head>
             <body>
               <p>Recibido: `
+              content+=valor_cookie.toString();
 
           req.on('data', chunk => {
               //-- Leer los datos (convertir el buffer a cadena)
               data = chunk.toString();
 
               //-- Añadir los datos a la respuesta
-              content += data;
 
               //-- Fin del mensaje. Enlace al formulario
               content += `
-                  </p>
+                  </p>hola
                   <a href="/">[Formulario]</a>
                 </body>
               </html>
