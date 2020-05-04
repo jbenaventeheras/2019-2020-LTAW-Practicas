@@ -22,33 +22,36 @@ http.createServer((req, res) => {
 
   function getCookie(cookie){
 
-  	if(cookie)
-  	{
+  	if(cookie){
       cookie_array= cookie.split(';');
       for(var i = 0; i <cookie_array.length; i++) {
         carrito = (cookie_array[i].split('=')[0])
         if (carrito == "carrito"){
           producto = (cookie_array[i].split('=')[1])
         }
-
-
       }
   	}
-   return producto
+   return carrito
   }
 
-  getCookie(cookie);
+  getCookie(cookie)
 
 
   // Leemos el index para URL vacía
     var filename = ""
+    var carrito= ""
     if (q.pathname == "/"){
       filename += "./index.html";
       //para url de compras añadidimos cookie y volvemos a index
     }else if(q.pathname == "/comprardestroyer"){
       filename += "./index.html";
       console.log("comprado destroyer")
-      res.setHeader('Set-Cookie', 'carrito=destroyer')
+      if (getCookie(cookie)=="carrito"){
+        producto+= ",destroyer"
+      }else{
+        producto="destroyer"
+      }
+      res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/compraralax"){
       filename += "./index.html";
       console.log("comprado Ala X")
