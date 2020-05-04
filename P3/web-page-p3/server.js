@@ -48,8 +48,9 @@ http.createServer((req, res) => {
           producto = (cookie_array[i].split('=')[1])
         }
       }
+      return producto
   	}
-   return producto
+
   }
 
   // Leemos el index para URL vacía
@@ -95,6 +96,13 @@ http.createServer((req, res) => {
       if (req.method === 'POST') {
           // Handle post info...
           var valor_cookie = getCookie_valor(cookie)
+          if (cookie){
+          valor_cookie_array= cookie.split(',');
+          for(var i = 0; i <valor_cookie_array.length; i++) {
+
+
+            }
+          }
           console.log(valor_cookie)
           var content = `
           <!DOCTYPE html>
@@ -105,8 +113,9 @@ http.createServer((req, res) => {
             </head>
             <body>
               <p>Recibido: `
-              content+=valor_cookie.toString();
-
+              if (cookie){
+                content+=valor_cookie.toString();
+              }
           req.on('data', chunk => {
               //-- Leer los datos (convertir el buffer a cadena)
               data = chunk.toString();
@@ -133,8 +142,6 @@ http.createServer((req, res) => {
            })
            return
         }
-
-
 
       //para el resto de paginas que no sean index ni de compra
     } else {
