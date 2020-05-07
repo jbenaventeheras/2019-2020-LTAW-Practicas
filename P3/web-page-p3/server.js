@@ -10,7 +10,7 @@ var express = require('express')
 //-- Configurar el servidor
 http.createServer((req, res) => {
 
-  console.log("---------- PETICION RECIBIDA --------------")
+  console.log("---------- PETICION RECIBIDA -----------------")
   let q = url.parse(req.url, true);
   console.log("Recurso solicitado (URL): " + req.url)
   console.log("Host: " + q.host)
@@ -30,10 +30,11 @@ http.createServer((req, res) => {
         if (carrito == "carrito"){
           //valor de la cookie
           producto = (cookie_array[i].split('=')[1])
+          return carrito
         }
       }
   	}
-   return carrito
+
   }
 
   function getCookie_valor(cookie){
@@ -112,7 +113,8 @@ http.createServer((req, res) => {
               <title>FORM 1</title>
               <link rel="stylesheet" href="index.css">
             </head>
-            <body>
+            <div align=center>
+            <body>------carrito-----</p>
               <p>Recibido: `
               if (cookie){
                 content+=valor_cookie.toString();
@@ -180,8 +182,6 @@ http.createServer((req, res) => {
       res.writeHead(200, {'Content-Type': mime});
 
     }
-
-
 
     res.write(data);
     res.end();

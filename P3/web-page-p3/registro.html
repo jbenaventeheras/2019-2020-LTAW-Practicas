@@ -27,28 +27,19 @@ function getCookie(cookieregistro){
 	 * document.cookie -->contiene las cookies
 	 * document.cookie.length -->longuitud de la cooki
 	 */
-	if(document.cookie.length>0)
-	{
-		/*
-		 * indexOf(car,desd)->primera posicion caracter y -1 si no lo encuentra
-		 */
-		comienzo=document.cookie.indexOf(cookieregistro + "=");
-    //lee cooki desde comienzo: =, hasta final: ;
-		if (comienzo!=-1)
-		{
-
-			comienzo=comienzo + cookieregistro.length+1;
-
-			final=document.cookie.indexOf(";",comienzo);
-
-			if (final==-1)
-				final=document.cookie.length;
-
-			return unescape(document.cookie.substring(comienzo,final));
-		}
-	}
-	//si no encuentra devuelve vacio
-	return "";
+	cookie = document.cookie;
+  cookie_array= cookie.split(';')
+  //console.log(cookie_array);
+  for(var i = 0; i <cookie_array.length; i++) {
+    //nombre de la cookie
+    carrito = (cookie_array[i].split('=')[0])
+    //console.log(carrito);
+    if (carrito == " cookie-registro"){
+      //valor de la cookie
+      producto = (cookie_array[i].split('=')[1])
+      return producto
+    }
+  }
 }
 </script>
 </head>
