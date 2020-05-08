@@ -110,7 +110,7 @@ http.createServer((req, res) => {
           <html lang="es">
             <head>
               <meta charset="utf-8">
-              <title>FORM 1</title>
+              <title>Carrito</title>
               <link rel="stylesheet" href="index.css">
             </head>
             <div align=center>
