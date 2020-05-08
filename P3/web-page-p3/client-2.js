@@ -1,20 +1,22 @@
 //-- Traza de prueba
 console.log("Hola!")
 
-//-- Obtener el botón de VER del DOM
-const ver = document.getElementById('ver')
+
+// pasamos el producto a buscar
+const ver = document.getElementById('producto')
 
 //-- Obtener el párrafo del DOM donde mostrar el resultado
 const resultado = document.getElementById('resultado');
 
-//-- Cuando el usuario aprieta el botón de ver los productos
-ver.onclick = ()=>{
+//-- Cuando el usuario introduce letras de busqueda
+  ver.onkeyup = ()=>{
 
+  const ver = document.getElementById('producto')
   //-- Crear objeto para hacer peticiones AJAX
   const m = new XMLHttpRequest();
 
   //-- Configurar la petición
-  m.open("GET","http://localhost:8080/myquery?param1=hola&param2=wei", true);
+  m.open("GET","http://localhost:8080/myquery?param1=hola", true);
 
   //-- Cuando la haya alguna noticia sobre la peticion
   //-- ejecuta este código

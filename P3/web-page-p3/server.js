@@ -27,7 +27,8 @@ http.createServer((req, res) => {
       for(var i = 0; i <cookie_array.length; i++) {
         //nombre de la cookie
         carrito = (cookie_array[i].split('=')[0])
-        if (carrito == "carrito"){
+        console.log(carrito)
+        if (carrito == "carrito" ||carrito == " carrito"){
           //valor de la cookie
           producto = (cookie_array[i].split('=')[1])
           return carrito
@@ -44,12 +45,13 @@ http.createServer((req, res) => {
       for(var i = 0; i <cookie_array.length; i++) {
         //nombre de la cookie
         carrito = (cookie_array[i].split('=')[0])
-        if (carrito == "carrito"){
+        if (carrito == "carrito" ||carrito == " carrito"){
           //valor de la cookie
           producto = (cookie_array[i].split('=')[1])
+          return producto
         }
       }
-      return producto
+
   	}
 
   }
@@ -63,7 +65,7 @@ http.createServer((req, res) => {
     }else if(q.pathname == "/comprardestroyer"){
       filename += "./index.html";
       console.log("comprado destroyer")
-      if (getCookie(cookie)=="carrito"){
+      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",destroyer"
       }else{
         producto="destroyer"
@@ -71,7 +73,7 @@ http.createServer((req, res) => {
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/compraralax"){
       filename += "./index.html";
-      if (getCookie(cookie)=="carrito"){
+      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",AlaX"
       }else{
         producto="AlaX"
@@ -79,7 +81,7 @@ http.createServer((req, res) => {
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprarhalcon"){
       filename += "./index.html";
-      if (getCookie(cookie)=="carrito"){
+      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Halcon"
       }else{
         producto="Halcon"
@@ -87,7 +89,7 @@ http.createServer((req, res) => {
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprartie"){
       filename += "./index.html";
-      if (getCookie(cookie)=="carrito"){
+      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Tie"
       }else{
         producto="Tie"
@@ -116,7 +118,7 @@ http.createServer((req, res) => {
             <div align=center>
             <body>------carrito-----</p>
               <p>Recibido: `
-              if (cookie){
+              if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
                 content+=valor_cookie.toString();
               }else{
                 content+='Carrito vacío';
