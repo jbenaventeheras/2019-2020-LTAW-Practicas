@@ -24,7 +24,13 @@ def index(request):
 def FalconSerie (request):
     return render(request, "FalconSerie.html", {})
 
-def 
+def StarLink (request):
+    return render(request, "StarLink.html", {})
+
+def SpaceShip (request):
+    return render(request, "SpaceShip.html", {})
+
+
 
 
 #-- Generar la página desde cero, a partir de código HTML que tenemos en una
