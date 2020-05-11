@@ -24,6 +24,8 @@ def index(request):
 def FalconSerie (request):
     return render(request, "FalconSerie.html", {})
 
+def 
+
 
 #-- Generar la página desde cero, a partir de código HTML que tenemos en una
  #--cadena. En los lugares que nos interese introducimos la información que queramos
@@ -149,7 +151,6 @@ def Show_products(request):
     return render(request, 'listado.html', {'productos':productos})
 
 
-
 #vista que llamaremos formulario1 encargo en tienda,a través plantilla formulario1.hmtl
 def formulario1(request):
     return render(request, 'formulario1.html', {})
@@ -157,10 +158,17 @@ def formulario1(request):
 #Vista de recepción de datos, lee los datos que han llegado del formulario.
 #través del método POST, indicando el nombre del campo a leer. En ejemplo "nombre"
 #mensaje respuesta con mini-pág web que confirma recibido  datos,y pone nombre recibido
+
+
 def recepcion1(request):
     # -- Obtener el nombre de la persona
     persona = request.POST['nombre']
-    producto = request.POST['nombre']
+    producto = request.POST['producto']
+    #--Ahora introducimos nuestro primer artículo invocando al constructor de la clase Pedido.
+    #--Esto nos ha creado el objeto pedido, que es nuestro pedido
+    pedido = Pedido(nombre=persona , producto=producto)
+    # Para grabar el artículo en la base de datos ejecutamos el metodo save():
+    pedido.save()
     # -- Imprimirlo en la consola del servidor
     print(f" PEDIDO RECIBIDO!!! ----> {persona}")
-    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'])
+    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'] + "Producto"  + request.POST['producto'])
