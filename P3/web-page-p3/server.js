@@ -4,7 +4,9 @@ const fs = require('fs');
 const path = require('path')
 const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
-var express = require('express')
+var express = require('express');
+var productos = ['Destroyer', 'Tie', 'Halcon', 'AlaX'];
+
 
 
 //-- Configurar el servidor
@@ -157,22 +159,22 @@ http.createServer((req, res) => {
     const parametros = q.query;
     console.log("Parametros: " + parametros.param1 );
     parametro1 = parametros.param1;
-    console.log(parametro);
+    console.log(parametro1);
     mime = "application/json"
 
-      if(['Destroyer', 'Tie', 'Halcon', 'AlaX'].includes(parametro)){
-
-
-        content = JSON.stringify(parametro) + '\n';
 
 
 
-      }
+    content = JSON.stringify(parametro1) + '\n';
+
+
+
+
       //-- Generar el mensaje de respuesta
       //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
       //-- en la cabecera Content-Type
       console.log("Cargar application/json ")
-      res.writeHead(200, {'Content-Type': mime});
+      res.setHeader('Content-Type', 'application/json')
       res.write(content);
       res.end();
 
@@ -190,7 +192,7 @@ http.createServer((req, res) => {
 
     console.log("Filename: " + filename);
     console.log("Type: " + type);
-
+    if (q.pathname != "/myquery"){
     var mime = "text/html"
     fs.readFile(filename, (err, data) => {
 
@@ -215,6 +217,12 @@ http.createServer((req, res) => {
       mime = "text/css";
       res.writeHead(200, {'Content-Type': mime});
 
+    }else if (q.pathname == "/myquery"){
+      console.log("Cargar application/json ")
+      res.setHeader('Content-Type', 'application/json')
+      res.write(content);
+      res.end();
+
     }
 
     res.write(data);
@@ -224,6 +232,7 @@ http.createServer((req, res) => {
     //gestion errores
 
   });
+}
 
 }).listen(PUERTO);
 
