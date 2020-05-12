@@ -3,20 +3,20 @@ console.log("Hola!")
 
 
 // pasamos el producto a buscar
-const ver = document.getElementById('producto')
+const search = document.getElementById('producto');
 
 //-- Obtener el párrafo del DOM donde mostrar el resultado
 const resultado = document.getElementById('resultado');
 
 //-- Cuando el usuario introduce letras de busqueda
-  ver.onkeyup = ()=>{
+  search.onkeyup = ()=>{
 
-  const ver = document.getElementById('producto')
   //-- Crear objeto para hacer peticiones AJAX
   const m = new XMLHttpRequest();
-
+  var search_key = document.getElementById('producto').value
   //-- Configurar la petición
-  m.open("GET","http://localhost:8080/myquery?param1=hola", true);
+  console.log(search_key)
+  m.open("GET","http://localhost:8080/myquery?param1="+ search_key, true);
 
   //-- Cuando la haya alguna noticia sobre la peticion
   //-- ejecuta este código

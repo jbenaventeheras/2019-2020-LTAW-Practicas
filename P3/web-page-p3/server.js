@@ -61,7 +61,7 @@ http.createServer((req, res) => {
     var carrito= ""
     if (q.pathname == "/"){
       filename += "./index.html";
-      //para url de compras añadidimos cookie y volvemos a index
+      //--para url de compras añadidimos cookie y volvemos a index
     }else if(q.pathname == "/comprardestroyer"){
       filename += "./index.html";
       console.log("comprado destroyer")
@@ -95,6 +95,8 @@ http.createServer((req, res) => {
         producto="Tie"
       }
       res.setHeader('Set-Cookie', 'carrito='+producto)
+      //--botton con path /micarrito envia un post
+      //-- hace respuesta con cookies y la inserta en html de respuesta
     }else if(q.pathname == "/mycarrito"){
       if (req.method === 'POST') {
           // Handle post info...
@@ -147,6 +149,36 @@ http.createServer((req, res) => {
            })
            return
         }
+
+
+
+    }else if (q.pathname == "/myquery"){
+
+    const parametros = q.query;
+    console.log("Parametros: " + parametros.param1 );
+    parametro1 = parametros.param1;
+    console.log(parametro);
+    mime = "application/json"
+
+      if(['Destroyer', 'Tie', 'Halcon', 'AlaX'].includes(parametro)){
+
+
+        content = JSON.stringify(parametro) + '\n';
+
+
+
+      }
+      //-- Generar el mensaje de respuesta
+      //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
+      //-- en la cabecera Content-Type
+      console.log("Cargar application/json ")
+      res.writeHead(200, {'Content-Type': mime});
+      res.write(content);
+      res.end();
+
+
+
+
 
       //para el resto de paginas que no sean index ni de compra
     } else {

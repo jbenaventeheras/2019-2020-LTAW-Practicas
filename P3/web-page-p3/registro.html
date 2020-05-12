@@ -6,6 +6,9 @@
    <link rel="stylesheet" href="index.css">
    <head>
 <script type="text/javascript">
+/* Como no hemos activado HttpOnly ni https permitimos insercción en nuestro
+/*servidor de codigo JS en nuestro caso set cookie y get cookie, con esto
+/*pruebo la vulnarbilidad de este servidor para posible robos de cookies
 /*
  * Genera una cookie y pasamos el valor desde el input msg
  */
@@ -34,7 +37,7 @@ function getCookie(cookieregistro){
     //nombre de la cookie
     carrito = (cookie_array[i].split('=')[0])
     //console.log(carrito);
-    if (carrito == " cookie-registro"){
+    if (carrito == " cookie-registro" ||carrito =="cookie-registro"){
       //valor de la cookie
       producto = (cookie_array[i].split('=')[1])
       return producto
