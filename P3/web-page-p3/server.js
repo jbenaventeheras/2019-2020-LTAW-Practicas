@@ -5,7 +5,7 @@ const path = require('path')
 const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
 var express = require('express');
-var productos = ['Destroyer', 'Tie', 'Halcon', 'AlaX'];
+var productos = ['destroyer', 'tie', 'halcon', 'alaX', "destroyer2"];
 
 
 
@@ -159,14 +159,29 @@ http.createServer((req, res) => {
     const parametros = q.query;
     console.log("Parametros: " + parametros.param1 );
     parametro1 = parametros.param1;
+    parametro1 = parametro1.toLowerCase();
     console.log(parametro1);
     mime = "application/json"
 
+    var productos_coincidentes = [];
 
+    for(var i = 0; i <productos.length; i++) {
+       var coincide = false;
+       for(var j = 0; j <parametro1.length; j++) {
+         if (productos[i].charAt(j)== parametro1.charAt(j)) {
+           coincide = true;
+         }else{
+           coincide = false;
+         }
+         console.log(coincide)
+       }
+       if (coincide){
+         productos_coincidentes.push(productos[i]);
+       }
+    }
 
-
-    content = JSON.stringify(parametro1) + '\n';
-
+       console.log(productos_coincidentes);
+       content = JSON.stringify(productos_coincidentes) + '\n';
 
 
 
