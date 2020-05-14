@@ -5,7 +5,7 @@ const path = require('path')
 const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
 var express = require('express');
-var productos = ['destroyer', 'tie', 'halcon', 'ala x', "destroyer2"];
+var productos = ['destroyer', 'tie', 'halcon', 'alax', "destroyer2"];
 
 
 
@@ -76,7 +76,7 @@ http.createServer((req, res) => {
     }else if(q.pathname == "/compraralax"){
       filename += "./index.html";
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
-        producto+= ",AlaX"
+        producto+= ",Ala x"
       }else{
         producto="AlaX"
       }
@@ -127,28 +127,19 @@ http.createServer((req, res) => {
               }else{
                 content+='Carrito vacío';
               }
-          req.on('data', chunk => {
-              //-- Leer los datos (convertir el buffer a cadena)
-              data = chunk.toString();
 
               content += `
-                  </p>hola
-                  <a href="/">[Formulario]</a>
+                  </p>
+                  <p><a href="/">pagina principal</a></p>
                 </body>
               </html>
               `
-              res.statusCode = 200;
-           });
-
-           req.on('end', ()=> {
              //-- Generar el mensaje de respuesta
              res.setHeader('Content-Type', 'text/html')
              res.write(content);
              res.end();
-           })
-           return
-        }
 
+        }
 
 
     }else if (q.pathname == "/myquery"){
@@ -182,7 +173,6 @@ http.createServer((req, res) => {
        content = JSON.stringify(productos_coincidentes) + '\n';
 
 
-
       //-- Generar el mensaje de respuesta
       //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
       //-- en la cabecera Content-Type
@@ -194,20 +184,55 @@ http.createServer((req, res) => {
     }else if (q.pathname == "/busquedaest"){
       if (req.method === 'GET') {
 
+        parametro = req.url.split('=')[1];
+        parametro = parametro.toLowerCase();
+
+        if (parametro == "destroyer"){
+          parametro += ": Destructor Estelar clase Imperial I,[20] también conocido \
+          como el Destructor clase Imperial I o el Destructor Estelar clase Imperator, \
+          era una clase icónica de nave de guerra diseñada por Lira Wessex y construida \
+          por Astilleros de Propulsores Kuat.[22][23] Los Destructores Estelares clase Imperial,\
+          junto con los soldados de asalto Imperiales, representaban el poder de las Fuerzas Armadas\
+          Imperiales en toda la galaxia durante el reinado del Imperio Galáctico."
+
+        }else if(parametro == "tie"){
+          parametro += ": El caza estelar TIE/LN, o caza estelar TIE/línea, conocido simplemente\
+           como el caza TIE o T/F, era el caza estelar Imperial estándar visto en grandes \
+           cantidades durante la mayor parte de la Guerra Civil Galáctica y en adelante. Coloquialmente,\
+            los pilotos Rebeldes y de la Nueva República se referían a la nave como globos oculares."
+
+        }else if(parametro == "halcon"){
+          parametro += ": El Halcón Milenario, originalmente conocido como YT-1300 492727ZED,\
+           era un carguero ligero corelliano YT-1300 utilizado por los contrabandistas Han Solo \
+           y Chewbacca durante la Guerra Civil Galáctica. Anteriormente, era propiedad de Landonis\
+          Balthazar Calrissian, que perdió contra Solo en un juego de sabacc."
+
+        }else if(parametro == "alax"){
+          parametro +=": El caza estelar T-65 Ala-X de Incom era el principal caza \
+          estelar multipropósito de la Alianza Rebelde y sus gobiernos sucesores. \
+          Conocido por su versatilidad y rendimiento de combate excepcional, fue uno \
+          de los favoritos entre los pilotos Rebeles y de la Nueva República. Poseyendo \
+          escudos deflectores, un hipermotor, un astromecánico R2 para reparaciones y navegación,\
+          y un complemento de torpedos de protones, el Ala-X permitió a la Rebelión lanzar incursiones\
+          en el espacio Imperial con mejores probabilidades de éxito."
+
+        }
 
         var content = `
         <!DOCTYPE html>
         <html lang="es">
           <head>
             <meta charset="utf-8">
-            <title>Carrito</title>
+            <title>Busqueda estatica</title>
             <link rel="stylesheet" href="index.css">
           </head>
           <div align=center>
-          <body>------carrito-----</p>
-            <p>Recibido:
+          <body>------Busqueda estatica-----</p>
+            <p>`
 
-                </p>hola
+            content += parametro.toString();
+
+              content +=  `</p>
                 <a href="/">pagina principal</a>
               </body>
             </html>
@@ -217,8 +242,6 @@ http.createServer((req, res) => {
             res.end();
 
       }
-
-
 
       //para el resto de paginas que no sean index ni de compra
     } else {
@@ -230,7 +253,7 @@ http.createServer((req, res) => {
 
     console.log("Filename: " + filename);
     console.log("Type: " + type);
-    if (q.pathname != "/myquery" 	&& q.pathname != "/busquedaest"){
+    if (q.pathname != "/myquery" 	&& q.pathname != "/busquedaest" && q.pathname != "/mycarrito"){
     var mime = "text/html"
     fs.readFile(filename, (err, data) => {
 
