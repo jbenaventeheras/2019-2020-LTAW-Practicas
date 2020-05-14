@@ -5,7 +5,7 @@ const path = require('path')
 const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
 var express = require('express');
-var productos = ['destroyer', 'tie', 'halcon', 'alaX', "destroyer2"];
+var productos = ['destroyer', 'tie', 'halcon', 'ala x', "destroyer2"];
 
 
 
@@ -131,9 +131,6 @@ http.createServer((req, res) => {
               //-- Leer los datos (convertir el buffer a cadena)
               data = chunk.toString();
 
-              //-- Añadir los datos a la respuesta
-
-              //-- Fin del mensaje. Enlace al formulario
               content += `
                   </p>hola
                   <a href="/">[Formulario]</a>
@@ -180,6 +177,7 @@ http.createServer((req, res) => {
        }
     }
 
+
        console.log(productos_coincidentes);
        content = JSON.stringify(productos_coincidentes) + '\n';
 
@@ -193,7 +191,32 @@ http.createServer((req, res) => {
       res.write(content);
       res.end();
 
+    }else if (q.pathname == "/busquedaest"){
+      if (req.method === 'GET') {
 
+
+        var content = `
+        <!DOCTYPE html>
+        <html lang="es">
+          <head>
+            <meta charset="utf-8">
+            <title>Carrito</title>
+            <link rel="stylesheet" href="index.css">
+          </head>
+          <div align=center>
+          <body>------carrito-----</p>
+            <p>Recibido:
+
+                </p>hola
+                <a href="/">pagina principal</a>
+              </body>
+            </html>
+            `
+            res.setHeader('Content-Type', 'text/html')
+            res.write(content);
+            res.end();
+
+      }
 
 
 
@@ -207,7 +230,7 @@ http.createServer((req, res) => {
 
     console.log("Filename: " + filename);
     console.log("Type: " + type);
-    if (q.pathname != "/myquery"){
+    if (q.pathname != "/myquery" 	&& q.pathname != "/busquedaest"){
     var mime = "text/html"
     fs.readFile(filename, (err, data) => {
 
@@ -231,12 +254,6 @@ http.createServer((req, res) => {
       console.log("Cargar CSS")
       mime = "text/css";
       res.writeHead(200, {'Content-Type': mime});
-
-    }else if (q.pathname == "/myquery"){
-      console.log("Cargar application/json ")
-      res.setHeader('Content-Type', 'application/json')
-      res.write(content);
-      res.end();
 
     }
 
