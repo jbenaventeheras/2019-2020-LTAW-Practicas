@@ -1,60 +1,19 @@
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
- <head>
-   <meta charset="utf-8">
-   <title>registrate</title>
-   <link rel="stylesheet" href="index.css">
-   <head>
-<script type="text/javascript">
-/* Como no hemos activado HttpOnly ni https permitimos insercción en nuestro
-/*servidor de codigo JS en nuestro caso set cookie y get cookie, con esto
-/*pruebo la vulnarbilidad de este servidor para posible robos de cookies
-/*
- * Genera una cookie y pasamos el valor desde el input msg
- */
-function setCookie(cookieregistro, caducidad) {
-	//Al crar cookie ponemos fecha actual mas 10 días pasado desde llamada
-  //si llamamos a borrar pasa -1 y borra
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>busqueda</title>
+    <link rel="stylesheet" href="index.css">
 
-  var expireDate = new Date() // fecha hoy
-  nombreusuario = document.getElementById("msg").value
-	expireDate.setDate(expireDate.getDate()+caducidad);
-
-	document.cookie = cookieregistro + "=" + escape(nombreusuario) + "; expires=" + expireDate.toGMTString() + "; path=/";
-}
-/*
- * Leer la cookie le pasamos el nombre de la cookie
- */
-function getCookie(cookieregistro){
-	/*
-	 * document.cookie -->contiene las cookies
-	 * document.cookie.length -->longuitud de la cooki
-	 */
-	cookie = document.cookie;
-  cookie_array= cookie.split(';')
-  //console.log(cookie_array);
-  for(var i = 0; i <cookie_array.length; i++) {
-    //nombre de la cookie
-    carrito = (cookie_array[i].split('=')[0])
-    //console.log(carrito);
-    if (carrito == " cookie-registro" ||carrito =="cookie-registro"){
-      //valor de la cookie
-      producto = (cookie_array[i].split('=')[1])
-      return producto
-    }
-  }
-}
-</script>
-</head>
- </head>
- <div align=center>
- <body>
-   ---------------  Registrate ---------------</p>
+  </head>
+  <div align=center>
+  <body>
     <img src="images/join.jpg"  width="280px" height="400px" HSPACE=5 VSPACE=3>
-    <br /><input id="msg" autocomplete="off" >
-    <br /><a href="javascript:setCookie('cookie-registro',10);">registrarse</a>
-    	<br /><a href="javascript:window.alert(getCookie('cookie-registro'));">recordar usuario</a>
-    	<br /><a href="javascript:setCookie('cookie-registro','',-1);">borrar usuario</a>
- </body>
- </div>
+    <p>Registrate</p>
+    <form name="form" action="/registro" method="GET">
+    <input type="text" id="producto" name= "texto" value=""/>
+    <input type="submit" value="Enviar"/>
+    <p id="resultado"></p>
+    </form>
+  </body>
 </html>

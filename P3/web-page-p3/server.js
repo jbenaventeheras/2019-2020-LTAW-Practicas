@@ -244,9 +244,21 @@ http.createServer((req, res) => {
       }
 
       //para el resto de paginas que no sean index ni de compra
+    }else if (q.pathname == "/registro"){
+      if (req.method === 'GET') {
+
+        filename += "./index.html";
+        parametro = req.url.split('=')[1];
+        res.setHeader('Set-Cookie', 'cookie-registro='+parametro)
+        
+
+      }
+
+
+
     } else {
-      filename = q.pathname;
-      filename = "." + filename
+    filename = q.pathname;
+    filename = "." + filename
     }
 
     type = filename.split(".")[2]
