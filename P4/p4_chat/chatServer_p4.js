@@ -15,6 +15,8 @@ const io = require('socket.io')(http);
 //-- Puerto donde lanzar el servidor
 const PORT = 8080
 
+var num_users = 0;
+
 //-- Lanzar servidor
 http.listen(PORT, function(){
   console.log('Servidor lanzado en puerto ' + PORT);
@@ -26,6 +28,12 @@ app.get('/', (req, res) => {
   let path = __dirname + '/chat_p4.html';
   res.sendFile(path);
   console.log("Acceso a " + path);
+});
+
+//-- caso de haber css
+app.get('/chat.css', (req, res) => {
+  res.sendFile(__dirname + '/chat.css');
+  console.log("/chat.css")
 });
 
 //-- Otra vista de prueba
@@ -44,11 +52,11 @@ app.use('/', express.static(__dirname +'/'));
 io.on('connection', function(socket){
 
   //-- Usuario conectado. Imprimir el identificador de su socket
-  console.log('--> Usuario conectado!. Socket id: ' + socket.id);
-
+  console.log('--> Usuario conectado!. Socket id: ' + socket.id );
+  num_users += 1;
   //-- Le damos la bienvenida a través del evento 'hello'
   //-- ESte evento lo hemos creado nosotros para nuestro chat
-  socket.emit('hello', "Bienvenido al Chat");
+  socket.emit('hello', "Welcome StarWars chat you are user number: " + num_users);
 
   //-- Función de retrollamada de mensaje recibido del cliente
   socket.on('msg', (msg) => {
@@ -58,8 +66,16 @@ io.on('connection', function(socket){
     io.emit('msg', msg);
   })
 
+  socket.on('cmd', (msg) => {
+    console.log("Cliente2: " + socket.id + ': ' + msg);
+
+    //-- Enviar el mensaje a TODOS los clientes que estén conectados
+    io.emit('msg', msg);
+  })
   //-- Usuario desconectado. Imprimir el identificador de su socket
   socket.on('disconnect', function(){
+    num_users -= 1;
     console.log('--> Usuario Desconectado. Socket id: ' + socket.id);
   });
+
 });

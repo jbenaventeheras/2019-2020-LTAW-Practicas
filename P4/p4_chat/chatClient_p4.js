@@ -32,9 +32,16 @@ send.onclick = () => {
   //-- Se envía el mensaje escrito
   //-- Usamos el nombre 'msg' para los mensajes de usuario
   //-- Si no se ha introducido ningún mensaje, no se envía
-  if (msg.value)
-    socket.emit('msg', msg.value)
+  switch (msg.value[0]) {
+  case "/":
+    socket.emit('cmd', msg.value)
+    break;
+  default:
+      socket.emit('msg', msg.value)
+    break;
 
+
+  }
   //-- Borramos el mensaje escrito
   msg.value="";
 }
