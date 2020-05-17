@@ -16,6 +16,10 @@ const io = require('socket.io')(http);
 const PORT = 8080
 
 var num_users = 0;
+var hoy = new Date();
+var dia = hoy.getDate();
+var mes = hoy.getMonth()+1;
+var an = hoy.getFullYear();
 
 //-- Lanzar servidor
 http.listen(PORT, function(){
@@ -68,9 +72,18 @@ io.on('connection', function(socket){
 
   socket.on('cmd', (msg) => {
     console.log("Cliente2: " + socket.id + ': ' + msg);
+    if (msg == "/list"){
+      socket.emit('msg', "numero usuarios: " + num_users);
+    }else if (msg == "/help"){
+      socket.emit('msg', "/help-- ayuda, /list-- Numero usuarios, Date-- fecha Hello-- mensaje servidor");
+    }else if (msg == "/hello"){
+      socket.emit('hello', "Hola soy tu servidor " );
+    }else if ("/date"){
+      socket.emit('msg',  dia+'/'+mes+'/'+an );
+    }
 
     //-- Enviar el mensaje a TODOS los clientes que estén conectados
-    io.emit('msg', msg);
+    //io.emit('msg', msg);
   })
   //-- Usuario desconectado. Imprimir el identificador de su socket
   socket.on('disconnect', function(){
