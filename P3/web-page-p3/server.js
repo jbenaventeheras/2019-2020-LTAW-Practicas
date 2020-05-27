@@ -4,9 +4,8 @@ const fs = require('fs');
 const path = require('path')
 const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
-var express = require('express');
+//ARRAY PARA BUSQUEDA DINAMICA
 var productos = ['destroyer', 'tie', 'halcon', 'alax', "destroyer2"];
-
 
 
 //-- Configurar el servidor
@@ -14,9 +13,14 @@ http.createServer((req, res) => {
 
   console.log("---------- PETICION RECIBIDA -----------------")
   let q = url.parse(req.url, true);
-  console.log("Recurso solicitado (URL): " + req.url)
-  console.log("Host: " + q.host)
-  console.log("pathname:" + q.pathname)
+  var filename = "." + q.pathname;
+  var carrito= ""
+  var type = filename.split(".")[2];
+  console.log("Recurso solicitado (URL): " + req.url);
+  console.log("Host: " + q.host);
+  console.log("pathname:" + q.pathname);
+  console.log("Filename: " + filename);
+  console.log("Type: " + type);
 
   //-- Leer las cookies
   const cookie = req.headers.cookie;
@@ -59,13 +63,13 @@ http.createServer((req, res) => {
   }
 
   // Leemos el index para URL vacía
-    var filename = ""
-    var carrito= ""
+
+//////////GESTION COOKIES REGISTRO Y BUSQUEDA////////////
     if (q.pathname == "/"){
-      filename += "./index.html";
+      filename = "./index.html";
       //--para url de compras añadidimos cookie y volvemos a index
     }else if(q.pathname == "/comprardestroyer"){
-      filename += "./index.html";
+      filename = "./index.html";
       console.log("comprado destroyer")
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",destroyer"
@@ -74,7 +78,7 @@ http.createServer((req, res) => {
       }
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/compraralax"){
-      filename += "./index.html";
+      filename = "./index.html";
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Ala x"
       }else{
@@ -82,7 +86,7 @@ http.createServer((req, res) => {
       }
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprarhalcon"){
-      filename += "./index.html";
+      filename = "./index.html";
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Halcon"
       }else{
@@ -90,7 +94,7 @@ http.createServer((req, res) => {
       }
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprartie"){
-      filename += "./index.html";
+      filename = "./index.html";
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Tie"
       }else{
@@ -240,32 +244,22 @@ http.createServer((req, res) => {
             res.setHeader('Content-Type', 'text/html')
             res.write(content);
             res.end();
-
       }
 
       //para el resto de paginas que no sean index ni de compra
     }else if (q.pathname == "/registro"){
       if (req.method === 'GET') {
 
-        filename += "./index.html";
+        filename = "./index.html";
         parametro = req.url.split('=')[1];
         res.setHeader('Set-Cookie', 'cookie-registro='+parametro)
-        
-
       }
-
-
-
-    } else {
-    filename = q.pathname;
-    filename = "." + filename
     }
 
-    type = filename.split(".")[2]
+    //////////////////////////////////////////////////////////////////////////
+    ////////////////////////GESTION DE PETICIONES ESTANDAR////////////////////
 
-    console.log("Filename: " + filename);
-    console.log("Type: " + type);
-    if (q.pathname != "/myquery" 	&& q.pathname != "/busquedaest" && q.pathname != "/mycarrito"){
+  if (q.pathname != "/myquery" 	&& q.pathname != "/busquedaest" && q.pathname != "/mycarrito"){
     var mime = "text/html"
     fs.readFile(filename, (err, data) => {
 
@@ -273,14 +267,13 @@ http.createServer((req, res) => {
         res.writeHead(404, {'Content-Type': mime});
         return res.end("404 Not Found " + q.pathname );
     }
-    var mime = "text/html"
 
     if (type == "html"){
         console.log("Cargar HTML")
         mime = "text/html";
         res.writeHead(200, {'Content-Type': mime});
 
-    }else if(['png', 'jpg', 'jpeg', 'ico'].includes(type)){
+    }else if(['png', 'jpg', 'jpeg', 'ico',"gif"].includes(type)){
       console.log("Cargar Imagen")
       mime = "image/" + type;
       res.writeHead(200, {'Content-Type': mime});
@@ -289,7 +282,6 @@ http.createServer((req, res) => {
       console.log("Cargar CSS")
       mime = "text/css";
       res.writeHead(200, {'Content-Type': mime});
-
     }
 
     res.write(data);
