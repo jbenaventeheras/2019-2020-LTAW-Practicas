@@ -74,7 +74,7 @@ http.createServer((req, res) => {
       console.log(filename);
       //--para url de compras añadidimos cookie y volvemos a index
     }else if(q.pathname == "/comprardestroyer"){
-      filename = "./index.html";
+      filename = "./formulariocompra.html";
       console.log("comprado destroyer")
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",destroyer"
@@ -83,7 +83,7 @@ http.createServer((req, res) => {
       }
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/compraralax"){
-      filename = "./index.html";
+      filename = "./formulariocompra.html";
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Ala x"
       }else{
@@ -91,7 +91,7 @@ http.createServer((req, res) => {
       }
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprarhalcon"){
-      filename = "./index.html";
+      filename = "./formulariocompra.html";
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Halcon"
       }else{
@@ -99,7 +99,7 @@ http.createServer((req, res) => {
       }
       res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprartie"){
-      filename = "./index.html";
+      filename = "./formulariocompra.html";
       if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
         producto+= ",Tie"
       }else{
@@ -258,6 +258,55 @@ http.createServer((req, res) => {
         filename = "./index.html";
         parametro = req.url.split('=')[1];
         res.setHeader('Set-Cookie', 'cookie-registro='+parametro)
+      }
+    }else if (q.pathname == "/myformcompra"){
+      if (req.method === 'POST') {
+        // Handle post info...
+
+        var content = `
+        <!DOCTYPE html>
+        <html lang="es">
+          <head>
+            <meta charset="utf-8">
+            <title>FORM 1</title>
+            <link rel="stylesheet" href="index.css">
+          </head>
+          <div align=center>
+          <body>
+            <p>Recibido: `
+
+  //--leer la información recibida en el cuerpo, se usa este código:
+
+  //--Con la instrucción req.on() se está estableciendo la función de retrollamada
+  //--para el evento de llegada de datos en el cuerpo, y se le pasa como parámetro
+  //--el buffer con los datos. Estos datos se convierten a tipo cadena y se insertan en la variable con el HTML
+        req.on('data', chunk => {
+            //-- Leer los datos (convertir el buffer a cadena)
+            data = chunk.toString();
+
+            //-- Añadir los datos a la respuesta
+            content += data;
+
+            //-- Fin del mensaje. Enlace al formulario
+            content += `
+                </p>
+                <a href="/">Pagina principal</a>
+              </body>
+            </html>
+            `
+            //-- Mostrar los datos en la consola del servidor
+            console.log("Datos recibidos: " + data)
+            res.statusCode = 200;
+         });
+  //--req.on('end', ...) generamos el mensaje de respuesta, una vez que se ha
+  //--terminado de procesar el mensaje de solicitud
+         req.on('end', ()=> {
+           //-- Generar el mensaje de respuesta
+           res.setHeader('Content-Type', 'text/html')
+           res.write(content);
+           res.end();
+         })
+         return
       }
     }
 
