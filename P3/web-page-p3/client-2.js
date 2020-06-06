@@ -1,6 +1,3 @@
-//-- Traza de prueba
-console.log("Hola!")
-
 
 // pasamos el producto a buscar
 const search = document.getElementById('producto');

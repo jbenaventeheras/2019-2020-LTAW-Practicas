@@ -6,16 +6,21 @@ const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
 //ARRAY PARA BUSQUEDA DINAMICA
 var productos = ['destroyer', 'tie', 'halcon', 'alax', "destroyer2"];
-
+//Formatos imagen soportados
+var formato_imagenes = ['png', 'jpg', 'jpeg', 'ico',"gif"];
+var formato_texto = ['html','css','plane'];
+var formato_video = ['webm','oggs'];
+var formato_audio = ['mpeg','mp3','wav','mpeg3'];
 
 //-- Configurar el servidor
 http.createServer((req, res) => {
 
   console.log("---------- PETICION RECIBIDA -----------------")
   let q = url.parse(req.url, true);
-  var filename = "." + q.pathname;
+  var filename = '.'+ q.pathname.toString();
   var carrito= ""
   var type = filename.split(".")[2];
+  var mime = ""
   console.log("Recurso solicitado (URL): " + req.url);
   console.log("Host: " + q.host);
   console.log("pathname:" + q.pathname);
@@ -67,6 +72,7 @@ http.createServer((req, res) => {
 //////////GESTION COOKIES REGISTRO Y BUSQUEDA////////////
     if (q.pathname == "/"){
       filename = "./index.html";
+      console.log(filename);
       //--para url de compras añadidimos cookie y volvemos a index
     }else if(q.pathname == "/comprardestroyer"){
       filename = "./index.html";
@@ -260,29 +266,35 @@ http.createServer((req, res) => {
     ////////////////////////GESTION DE PETICIONES ESTANDAR////////////////////
 
   if (q.pathname != "/myquery" 	&& q.pathname != "/busquedaest" && q.pathname != "/mycarrito"){
-    var mime = "text/html"
-    fs.readFile(filename, (err, data) => {
 
+    fs.readFile(filename, (err, data) => {
     if (err) {
         res.writeHead(404, {'Content-Type': mime});
         return res.end("404 Not Found " + q.pathname );
     }
 
-    if (type == "html"){
-        console.log("Cargar HTML")
-        mime = "text/html";
+    if (formato_texto.includes(type)){
+        console.log("Cargar text/")
+        mime = "text/" + type;
         res.writeHead(200, {'Content-Type': mime});
 
-    }else if(['png', 'jpg', 'jpeg', 'ico',"gif"].includes(type)){
-      console.log("Cargar Imagen")
+    }else if(formato_imagenes.includes(type)){
+      console.log("Cargar image/")
       mime = "image/" + type;
       res.writeHead(200, {'Content-Type': mime});
 
-    }else if (type == "css"  ||  type== 'stylesheet'){
-      console.log("Cargar CSS")
-      mime = "text/css";
+    }else if(formato_video.includes(type)){
+      console.log("Cargar video/")
+      mime = "video/" + type;
       res.writeHead(200, {'Content-Type': mime});
+
+    }else if(formato_audio.includes(type)){
+      console.log("Cargar audio/")
+      mime = "audio/" + type;
+      res.writeHead(200, {'Content-Type': mime});
+
     }
+
 
     res.write(data);
     res.end();
