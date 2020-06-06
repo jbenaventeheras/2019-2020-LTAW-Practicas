@@ -9,7 +9,7 @@ var productos = ['destroyer', 'tie', 'halcon', 'alax', "destroyer2"];
 //Formatos imagen soportados
 var formato_imagenes = ['png', 'jpg', 'jpeg', 'ico',"gif"];
 var formato_texto = ['html','css','plane'];
-var formato_video = ['webm','oggs'];
+var formato_video = ['webm','oggs','mp4'];
 var formato_audio = ['mpeg','mp3','wav','mpeg3'];
 
 //-- Configurar el servidor
@@ -67,7 +67,6 @@ http.createServer((req, res) => {
 
   }
 
-  // Leemos el index para URL vacía
 
 //////////GESTION COOKIES REGISTRO Y BUSQUEDA////////////
     if (q.pathname == "/"){
