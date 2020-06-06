@@ -49,6 +49,24 @@ http.createServer((req, res) => {
 
   }
 
+  function getCookie2(cookie){
+
+  	if(cookie){
+      cookie_array= cookie.split(';');
+      for(var i = 0; i <cookie_array.length; i++) {
+        //nombre de la cookie
+        cookieregistro = (cookie_array[i].split('=')[0])
+        console.log(cookieregistro)
+        if (cookieregistro == "cookie-registro" ||cookieregistro == " cookie-registro"){
+          //valor de la cookie
+          producto = (cookie_array[i].split('=')[1])
+          return cookieregistro
+        }
+      }
+  	}
+
+  }
+
   function getCookie_valor(cookie){
 
   	if(cookie){
@@ -74,38 +92,54 @@ http.createServer((req, res) => {
       console.log(filename);
       //--para url de compras añadidimos cookie y volvemos a index
     }else if(q.pathname == "/comprardestroyer"){
-      filename = "./formulariocompra.html";
-      console.log("comprado destroyer")
-      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
-        producto+= ",destroyer"
-      }else{
-        producto="destroyer"
-      }
-      res.setHeader('Set-Cookie', 'carrito='+producto)
+      if (getCookie2(cookie)=="cookie-registro" ||getCookie2(cookie)==" cookie-registro"){
+        filename = "./formulariocompra.html";
+        console.log("comprado destroyer")
+        if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
+          producto+= ",destroyer"
+        }else{
+          producto="destroyer"
+        }
+        res.setHeader('Set-Cookie', 'carrito='+producto)
+    }else{
+      filename = "./registro.html";
+    }
     }else if(q.pathname == "/compraralax"){
-      filename = "./formulariocompra.html";
-      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
-        producto+= ",Ala x"
+      if (getCookie2(cookie)=="cookie-registro" ||getCookie2(cookie)==" cookie-registro"){
+        filename = "./formulariocompra.html";
+        if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
+          producto+= ",Ala x"
+        }else{
+          producto="AlaX"
+        }
+        res.setHeader('Set-Cookie', 'carrito='+producto)
       }else{
-        producto="AlaX"
+        filename = "./registro.html";
       }
-      res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprarhalcon"){
-      filename = "./formulariocompra.html";
-      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
-        producto+= ",Halcon"
+      if (getCookie2(cookie)=="cookie-registro" ||getCookie2(cookie)==" cookie-registro"){
+        filename = "./formulariocompra.html";
+        if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
+          producto+= ",Halcon"
+        }else{
+          producto="Halcon"
+        }
+        res.setHeader('Set-Cookie', 'carrito='+producto)
       }else{
-        producto="Halcon"
+        filename = "./registro.html";
       }
-      res.setHeader('Set-Cookie', 'carrito='+producto)
     }else if(q.pathname == "/comprartie"){
-      filename = "./formulariocompra.html";
-      if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
-        producto+= ",Tie"
+      if (getCookie2(cookie)=="cookie-registro" ||getCookie2(cookie)==" cookie-registro"){
+        filename = "./formulariocompra.html";
+        if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
+          producto+= ",Tie"
+        }else{
+          producto="Tie"
+        }
+        res.setHeader('Set-Cookie', 'carrito='+producto)
       }else{
-        producto="Tie"
+        filename = "./registro.html";
       }
-      res.setHeader('Set-Cookie', 'carrito='+producto)
       //--botton con path /micarrito envia un post
       //-- hace respuesta con cookies y la inserta en html de respuesta
     }else if(q.pathname == "/mycarrito"){
@@ -130,7 +164,7 @@ http.createServer((req, res) => {
             </head>
             <div align=center>
             <body>------carrito-----</p>
-              <p>Recibido: `
+              <p>elementos en carrito: `
               if (getCookie(cookie)=="carrito" ||getCookie(cookie)==" carrito"){
                 content+=valor_cookie.toString();
               }else{
