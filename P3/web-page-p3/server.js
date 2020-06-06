@@ -191,7 +191,6 @@ http.createServer((req, res) => {
     console.log("Parametros: " + parametros.param1 );
     parametro1 = parametros.param1;
     parametro1 = parametro1.toLowerCase();
-    console.log(parametro1);
     mime = "application/json"
 
     var productos_coincidentes = [];
@@ -204,7 +203,6 @@ http.createServer((req, res) => {
          }else{
            coincide = false;
          }
-         console.log(coincide)
        }
        if (coincide){
          productos_coincidentes.push(productos[i]);
