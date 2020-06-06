@@ -6,55 +6,59 @@ const PUERTO = 8080;
 const LOCALIP = '192.168.1.37';
 var express = require('express')
 
+var formato_imagenes = ['png', 'jpg', 'jpeg', 'ico',"gif"];
+var formato_texto = ['html','css','plane'];
+var formato_video = ['webm','oggs','mp4'];
+var formato_audio = ['mpeg','mp3','wav','mpeg3'];
+
 
 //-- Configurar el servidor
 http.createServer((req, res) => {
 
 
 
-  console.log("----------> Peticion recibida")
+  console.log("---------- PETICION RECIBIDA -----------------")
   let q = url.parse(req.url, true);
-  console.log("Recurso solicitado (URL): " + req.url)
-  console.log("Host: " + q.host)
-  console.log("pathname:" + q.pathname)
+  var filename = '.'+ q.pathname.toString();
+  var carrito= ""
+  var type = filename.split(".")[2];
+  var mime = ""
+  console.log("Recurso solicitado (URL): " + req.url);
+  console.log("Host: " + q.host);
+  console.log("pathname:" + q.pathname);
+  console.log("Filename: " + filename);
+  console.log("Type: " + type);
 
 
-  // Leemos el index para URL vacía
-    var filename = ""
-    if (q.pathname == "/")
-      filename += "./index.html";
-    else {
-      filename = q.pathname;
-      filename = "." + filename
+    if (q.pathname == "/"){
+      filename = "./index.html";
+
     }
 
-    type = filename.split(".")[1]
-
-
-    console.log("Filename: " + filename);
-    console.log("Type: " + type);
-
-    var mime = "text/html"
     fs.readFile(filename, (err, data) => {
-
     if (err) {
         res.writeHead(404, {'Content-Type': mime});
         return res.end("404 Not Found " + q.pathname );
     }
-    var mime = "text/html"
 
-    if (type == "html"){
-        console.log("Cargar HTML")
-        mime = "text/html";
+    if (formato_texto.includes(type)){
+        console.log("Cargar text/")
+        mime = "text/" + type;
         res.writeHead(200, {'Content-Type': mime});
-    }else if(['png', 'jpg', 'jpeg', 'ico'].includes(type)){
-      console.log("Cargar Imagen")
+
+    }else if(formato_imagenes.includes(type)){
+      console.log("Cargar image/")
       mime = "image/" + type;
       res.writeHead(200, {'Content-Type': mime});
 
-    }else if (type == "css"  ||  type== 'stylesheet'){
-      console.log("Cargar CSS")
-      mime = "text/css";
+    }else if(formato_video.includes(type)){
+      console.log("Cargar video/")
+      mime = "video/" + type;
+      res.writeHead(200, {'Content-Type': mime});
+
+    }else if(formato_audio.includes(type)){
+      console.log("Cargar audio/")
+      mime = "audio/" + type;
       res.writeHead(200, {'Content-Type': mime});
 
     }
@@ -62,7 +66,7 @@ http.createServer((req, res) => {
 
     res.write(data);
     res.end();
-    console.log('____________END REQUEST____________\n');
+    console.log('---------PETICION TERMINADA----------\n');
 
     //gestion errores
 
