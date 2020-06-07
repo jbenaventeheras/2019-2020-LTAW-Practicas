@@ -25,7 +25,5 @@ class Pedido(models.Model):
     nombre = models.CharField(max_length=50)
     producto = models.CharField(max_length=50)
 
-
-
     def __str__(self):
         return self.nombre
