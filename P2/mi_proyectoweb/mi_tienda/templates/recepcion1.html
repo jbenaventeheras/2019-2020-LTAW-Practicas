@@ -4,19 +4,18 @@
   <html lang="es" dir="ltr">
     <head>
       <meta charset="utf-8">
-      <title>Pedidos encargados</title>
+      <title>Pedidos realizado</title>
       <link rel="shortcut icon" href="{%static 'SpaceX.ico'%}">
       <link rel="stylesheet" href="{%static 'css/micss.css'%}">
 
     </head>
     <div align=center>
     <body>
-      <h1>Listado de pedidos</h1>
+      <h1>GRACIAS POR TU PEDIDO HA SIDO REALIZADO</h1>
       <ul>
-       <!--bucle para recorrer productos en cada pasada una linea li -->
-      {% for prod in pedidos %}
-          <li> Nombre:{{ prod.nombre }}: --> Producto: {{prod.producto}}</a></li>
-      {% endfor %}
+
+          <li> Nombre -->{{ pedidopersona.nombre  }}: Producto ---> {{pedidopersona.producto}}</a></li>
+
       </ul>
     </body>
   </html>

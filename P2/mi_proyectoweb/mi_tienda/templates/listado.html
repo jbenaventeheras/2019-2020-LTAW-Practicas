@@ -1,15 +1,20 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
   <html lang="es" dir="ltr">
     <head>
       <meta charset="utf-8">
       <title>Listado</title>
+      <link rel="shortcut icon" href="{%static 'SpaceX.ico'%}">
+      <link rel="stylesheet" href="{%static 'css/micss.css'%}">
     </head>
+    <div align=center>
     <body>
       <h1>Listado de productos</h1>
       <ul>
-       <!--bucle para recorrer productos en cada pasada una linea li --> 
+       <!--bucle para recorrer productos en cada pasada una linea li -->
       {% for prod in productos %}
-          <li>{{ prod.nombre }}: --> Precio: {{prod.precio}}</a></li>
+          <li>{{ prod.nombre }}: --> Precio: {{prod.precio}} --> Stock: {{prod.stock}}</a></li>
       {% endfor %}
       </ul>
     </body>
