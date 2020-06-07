@@ -232,7 +232,7 @@ http.createServer((req, res) => {
           parametro += ": Destructor Estelar clase Imperial I,[20] también conocido \
           como el Destructor clase Imperial I o el Destructor Estelar clase Imperator, \
           era una clase icónica de nave de guerra diseñada por Lira Wessex y construida \
-          por Astilleros de Propulsores Kuat.[22][23] Los Destructores Estelares clase Imperial,\
+          por Astilleros de Propulsores Kuat.Los Destructores Estelares clase Imperial,\
           junto con los soldados de asalto Imperiales, representaban el poder de las Fuerzas Armadas\
           Imperiales en toda la galaxia durante el reinado del Imperio Galáctico."
 
