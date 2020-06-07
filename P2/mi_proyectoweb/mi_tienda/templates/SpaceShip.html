@@ -20,6 +20,12 @@
 
      </p>
 
+     <ul>
+      <!--bucle para recorrer productos en cada pasada una linea li -->
+     {% for prod in productos %}
+         <li>{{ prod.nombre }}: --> Precio: {{prod.precio}} --> Stock: {{prod.stock}}</a></li>
+     {% endfor %}
+     </ul>
  </body>
  </div>
 </html>

@@ -16,19 +16,22 @@ from mi_tienda.models import Pedido
 # -- Vista principal de mi tienda
 # -- El nombre de la vista puede ser cualquiera. Nosotros lo hemos
 # -- llamado index, pero se podría haber llamado pepito
-def index(request):
 
-    numero = randint(0, 100)
-    return render(request, 'index.html', {'numero':str(numero)})
+def index (request):
+
+    return render(request, "index.html", {})
 
 def FalconSerie (request):
-    return render(request, "FalconSerie.html", {})
+    productos = Producto.objects.all()
+    return render(request, "FalconSerie.html", {'productos':productos})
 
 def StarLink (request):
-    return render(request, "StarLink.html", {})
+    productos = Producto.objects.all()
+    return render(request, "StarLink.html", {'productos':productos})
 
 def SpaceShip (request):
-    return render(request, "SpaceShip.html", {})
+    productos = Producto.objects.all()
+    return render(request, "SpaceShip.html", {'productos':productos})
 
 
 #-- Generar la página desde cero, a partir de código HTML que tenemos en una
