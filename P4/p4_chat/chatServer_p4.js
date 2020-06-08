@@ -70,13 +70,13 @@ io.on('connection', function(socket){
   socket.on('cmd', (msg) => {
     console.log("Cliente: " + socket.id + ': ' + msg);
     if (msg == "/list"){
-      socket.emit('msg', "numero usuarios: " + num_users);
+      socket.emit('hello', "numero usuarios: " + num_users);
     }else if (msg == "/help"){
-      socket.emit('msg', "/help-- ayuda, /list-- Numero usuarios, Date-- fecha Hello-- mensaje servidor");
+      socket.emit('hello', "/help-- ayuda, /list-- Numero usuarios, Date-- fecha Hello-- mensaje servidor");
     }else if (msg == "/hello"){
       socket.emit('hello', "Hola soy tu servidor " );
     }else if ("/date"){
-      socket.emit('msg',  dia+'/'+mes+'/'+an );
+      socket.emit('hello',  dia+'/'+mes+'/'+an );
     }
 
     //-- Enviar el mensaje a TODOS los clientes que estén conectados
