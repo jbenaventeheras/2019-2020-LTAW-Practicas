@@ -40,12 +40,6 @@ app.get('/chat.css', (req, res) => {
   console.log("/chat.css")
 });
 
-//-- Otra vista de prueba
-app.get('/woala', (req, res) => {
-  res.send('WOALA! Chuck Norris approved!! :-)');
-  console.log("Acceso a /woala");
-});
-
 //-- El resto de peticiones se interpretan como
 //-- ficheros estáticos
 app.use('/', express.static(__dirname +'/'));
@@ -61,6 +55,7 @@ io.on('connection', function(socket){
   //-- Le damos la bienvenida a través del evento 'hello'
   //-- ESte evento lo hemos creado nosotros para nuestro chat
   socket.emit('hello', "Welcome StarWars chat you are user number: " + num_users);
+  io.emit('msg', "Conectado usuario numero: " + num_users);
 
   //-- Función de retrollamada de mensaje recibido del cliente
   socket.on('msg', (msg) => {
@@ -70,8 +65,10 @@ io.on('connection', function(socket){
     io.emit('msg', msg);
   })
 
+////////////Gestion de comandos//////////////
+
   socket.on('cmd', (msg) => {
-    console.log("Cliente2: " + socket.id + ': ' + msg);
+    console.log("Cliente: " + socket.id + ': ' + msg);
     if (msg == "/list"){
       socket.emit('msg', "numero usuarios: " + num_users);
     }else if (msg == "/help"){
@@ -89,6 +86,8 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     num_users -= 1;
     console.log('--> Usuario Desconectado. Socket id: ' + socket.id);
+    io.emit('msg', "usario desconectado");
+
   });
 
 });
