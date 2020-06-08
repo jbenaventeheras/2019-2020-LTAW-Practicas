@@ -38,6 +38,6 @@ Navegador con URL http://localhost:8000/mi_tienda/ para acceder al index de la m
   Si realizamos un pedido con el nombre exacto que con el que contiene el producto en la base de datos lo restará del Stock.
 
 · En cuanto al modelo de datos tenemos la clase producto con nombre, stock y precio. Y la clase pedido con el nombre de la persona y
-  el producto que queremos encargar, el lo gestionaremos desde el administrador habiendo creado en este la base de datos y para añadir productos retocar precios y actulizar stock en positivo, el segundo añadira los pedidos a la base de datos, se crea la base de datos cuando se recibe el formulario relleno del cliente, desde el servidor y guardandola con save, tal y como se pedia.
+  el producto que queremos encargar, el primero lo gestionaremos desde el administrador habiendo creado en este la base de datos y para añadir productos retocar precios y actulizar stock en positivo, el segundo añadira los pedidos a la base de datos, se crea la base de datos cuando se recibe el formulario relleno del cliente, desde el servidor y guardandola con save, tal y como se pedia.
 
 · Para añadir un producto modificarlo lo hacemos desde el path http://localhost:8000/admin/, admin admin para logearse.
