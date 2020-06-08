@@ -22,15 +22,15 @@ def index (request):
     return render(request, "index.html", {})
 
 def FalconSerie (request):
-    productos = Producto.objects.all()
+    productos = Producto.objects.get(nombre="FALCON X")
     return render(request, "FalconSerie.html", {'productos':productos})
 
 def StarLink (request):
-    productos = Producto.objects.all()
+    productos = Producto.objects.get(nombre="STARLINK")
     return render(request, "StarLink.html", {'productos':productos})
 
 def SpaceShip (request):
-    productos = Producto.objects.all()
+    productos = Producto.objects.get(nombre="SPACESHIP")
     return render(request, "SpaceShip.html", {'productos':productos})
 
 
@@ -73,11 +73,15 @@ def formulario1(request):
 def recepcion1(request):
     # -- Obtener el nombre de la persona
     persona = request.POST['nombre']
-    producto = request.POST['producto']
+    producto = request.POST['producto'].upper()
     #--Ahora introducimos nuestro primer artículo invocando al constructor de la clase Pedido.
     #--Esto nos ha creado el objeto pedido, que es nuestro pedido
     pedido = Pedido(nombre=persona , producto=producto)
     # Para grabar el artículo en la base de datos ejecutamos el metodo save():
     pedido.save()
+
+    productos = Producto.objects.get(nombre=producto)
+    productos.stock -= 1;
+    productos.save()
     # -- Imprimirlo en la consola del servidor
     return render(request, 'recepcion1.html', {'pedidopersona':pedido})
